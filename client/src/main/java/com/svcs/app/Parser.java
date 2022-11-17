@@ -1,6 +1,7 @@
 package com.svcs.app;
 
 import com.svcs.app.builtins.Add;
+import com.svcs.app.builtins.Help;
 import com.svcs.app.builtins.Init;
 import com.svcs.app.exceptions.UnknownCommandException;
 import com.svcs.core.SVCSManager;
@@ -20,10 +21,13 @@ public class Parser {
 	private Command getBuiltin(String command) throws UnknownCommandException {
 		switch (command.toLowerCase(Locale.ROOT)) {
 			case "add" -> {
-				return new Add(this.receiver.getCore());
+				return new Add(this.receiver);
 			}
 			case "init" -> {
 				return new Init(this.receiver);
+			}
+			case "--help" -> {
+				return new Help(this.receiver);
 			}
 
 			default -> throw new UnknownCommandException(command);
